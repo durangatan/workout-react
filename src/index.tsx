@@ -1,15 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom';
-import AppRoutes from './app-routes';
+import { BrowserRouter } from 'react-router-dom';
+import AppRoutes from './components/app-routes';
 import * as serviceWorker from './serviceWorker';
-import Page from './page';
+import Page from './components/page';
 
 ReactDOM.render(
   <Page>
-    <HashRouter>
+    <BrowserRouter>
       <AppRoutes />
-    </HashRouter>
+    </BrowserRouter>
   </Page>,
   document.getElementById('root')
 );

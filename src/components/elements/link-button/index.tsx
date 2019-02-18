@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const LinkStyled = styled(Link)<LinkButtonProps>`
-  padding: 24px;
   text-align: center;
 
   text-decoration: none;
@@ -11,9 +10,9 @@ const LinkStyled = styled(Link)<LinkButtonProps>`
   border-radius: 12px;
   color: ${({ theme, buttonType }) => getFontColor(buttonType, theme)};
 `;
-type ButtonType = 'default' | 'action';
+export type ButtonType = 'default' | 'action';
 
-const getBackgroundColor = (buttonType: ButtonType, theme: any): string => {
+export const getBackgroundColor = (buttonType: ButtonType, theme: any): string => {
   switch (buttonType) {
     case 'default': {
       return theme.color.gray;
@@ -27,7 +26,7 @@ const getBackgroundColor = (buttonType: ButtonType, theme: any): string => {
   }
 };
 
-const getFontColor = (buttonType: ButtonType, theme: any): string => {
+export const getFontColor = (buttonType: ButtonType, theme: any): string => {
   switch (buttonType) {
     case 'default': {
       return theme.color.black;
