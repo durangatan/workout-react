@@ -28,3 +28,7 @@ export const ButtonContainer = styled.nav`
   align-items: center;
   justify-content: center;
 `;
+
+Button.defaultProps = {
+  buttonType: 'Default'
+};

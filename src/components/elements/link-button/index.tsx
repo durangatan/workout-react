@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const LinkStyled = styled(Link)<LinkButtonProps>`
   text-align: center;
-
+  padding: 24px;
   text-decoration: none;
   background: ${({ theme, buttonType }) => getBackgroundColor(buttonType, theme)};
   border-radius: 12px;

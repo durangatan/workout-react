@@ -6,11 +6,7 @@ import { getRoutine } from '../../../api';
 import { renderIf, formattedTime } from '../../util/';
 import { Button } from '../../elements';
 import { EndWorkoutConfirmationModal } from './modals';
-
-const Main = styled.main`
-  width: 100vw;
-  height: 100vh;
-`;
+import { Main } from '../../page';
 
 function Timer({ initialTime, currentTime }: { initialTime: number; currentTime: number }) {
   return <div>Time Elapsed: {formattedTime(Math.floor(currentTime - initialTime))}</div>;

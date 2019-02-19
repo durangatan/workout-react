@@ -1,4 +1,2 @@
-import React from 'react';
-export default function Edit() {
-  return <div>Edit</div>;
-}
+export { default as Edit } from './edit';
+export { default as EditFormRow } from './edit-form-row';
