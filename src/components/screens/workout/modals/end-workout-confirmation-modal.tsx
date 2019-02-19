@@ -12,8 +12,8 @@ export default function EndWorkoutConfirmationModal({ onCancel, onConfirm }: Con
     <React.Fragment>
       <h1>Are You Sure You Want To End This Workout?</h1>
       <ButtonContainer>
-        <Button onClick={onCancel} text={'Go Back'} buttonType={'default'} />
-        <Button onClick={onConfirm} text={'End Workout'} buttonType={'action'} />
+        <Button onClick={onCancel} text={'Go Back'} buttonType={'action'} />
+        <Button onClick={onConfirm} text={'End Workout'} buttonType={'error'} />
       </ButtonContainer>
     </React.Fragment>
   );
