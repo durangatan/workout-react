@@ -1,4 +1,16 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Workout App Go Crazy
+
+React app for circuit training workout. Tracks sets, weight, and workout duration. Users can add exercises, sets, and routines.
+
+Tech used in this app:
+- React 16 with Hooks
+- Typescript
+- Styled Components
+- React Router
+- React Beautiful Drag & Drop 
+- React Swipe
+- Font Awesome
+- Jest
 
 ## Available Scripts
 
