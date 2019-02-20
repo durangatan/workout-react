@@ -1,4 +1,4 @@
-# Workout App Go Crazy
+# Workout App
 
 React app for circuit training workout. Tracks sets, weight, and workout duration. Users can add exercises, sets, and routines.
 
