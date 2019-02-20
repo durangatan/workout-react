@@ -1,5 +1,21 @@
-import React from 'react';
-
+import React, { useEffect, useState } from 'react';
+import { getWorkouts } from '../../../api';
+import { Main } from '../../page';
+import { formattedTime } from '../../util';
 export default function Stats() {
-  return <div>Stats</div>;
+  const [workouts, setWorkouts] = useState<Array<any>>([]);
+  useEffect(() => {
+    getWorkouts().then(setWorkouts);
+  });
+  return (
+    <Main>
+      <h1>Stats</h1>
+      <div>
+        {workouts.map(workout => {
+          const totalTime = workout.endTime - workout.startTime;
+          return <div>Total Time: {formattedTime(totalTime)}</div>;
+        })}
+      </div>
+    </Main>
+  );
 }

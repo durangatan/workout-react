@@ -32,6 +32,8 @@ export const getRoutines = (): Promise<Array<any>> => getJson(`${API_URL}/routin
 
 export const postRoutine = (routine: any): Promise<Response> => postJson(`${API_URL}/routines`, routine);
 
-export const postWorkout = (workout: any): Promise<Response> => postJson(`${API_URL}/workouts`, workout);
-
 export const getExercises = (): Promise<Array<any>> => getJson(`${API_URL}/exercises`);
+
+export const getWorkouts = (): Promise<Array<any>> => getJson(`${API_URL}/workouts`);
+
+export const postWorkout = (workout: any): Promise<Response> => postJson(`${API_URL}/workouts`, workout);
