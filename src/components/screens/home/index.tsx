@@ -15,7 +15,7 @@ export default function Home() {
 			/>
 			<ButtonContainer>
 				<LinkButton to="/edit" text="Edit" buttonType="action" />
-				<LinkButton to="/stats" text="Stats" />
+				<LinkButton to="/stats" text="Stats" buttonType="default" />
 			</ButtonContainer>
 		</Main>
 	);
