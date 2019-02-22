@@ -1,3 +1,7 @@
 declare module 'lodash-move' {
-  export default function move(array: Array<any>, from: number, to: number): Array<any>;
+	export default function move<T>(
+		array: Array<T>,
+		from: number,
+		to: number
+	): Array<T>;
 }
