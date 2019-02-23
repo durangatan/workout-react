@@ -6,12 +6,16 @@ import { getRoutines, getRoutine, getExercises, postRoutine } from '../../../api
 import { Button, LinkButton, Dropdown, DragAndDropRegion, Input } from '../../elements';
 import { EditFormRow } from './';
 import { ButtonContainer } from '../../elements/button';
+import { Routine, RoutineSet, Exercise, WorkoutSet } from '../../../../../workout-models';
+type RoutineSetMap = {
+  [routineId: number]: Array<WorkoutSet>;
+};
 
 function EditScreen() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [routines, setRoutines] = useState<Array<any>>([]);
-  const [routineSets, setRoutineSets] = useState<any>({});
-  const [exercises, setExercises] = useState<Array<any>>([]);
+  const [routines, setRoutines] = useState<Array<Routine>>([]);
+  const [routineSets, setRoutineSets] = useState<RoutineSetMap>({});
+  const [exercises, setExercises] = useState<Array<Exercise>>([]);
   const activeRoutine = routines[activeIndex];
   const activeRoutineId = routines[activeIndex] ? routines[activeIndex].id : null;
   const activeRoutineSets = activeRoutineId && routineSets[activeRoutineId] ? routineSets[activeRoutineId] : [];
@@ -33,9 +37,9 @@ function EditScreen() {
   }, []);
 
   useEffect(() => {
-    if (activeRoutine) {
+    if (activeRoutine && activeRoutineId) {
       if (activeRoutineSets) {
-        setRoutineSets(activeRoutineSets);
+        setRoutineSets({ ...routineSets, [activeRoutineId]: activeRoutineSets });
       } else {
         getRoutine(activeRoutineId).then(routineWithSets => {
           setRoutineSets({ ...routineSets, [activeRoutineId]: routineWithSets.sets });
@@ -48,29 +52,42 @@ function EditScreen() {
     if (!result.destination) {
       return;
     }
-
     const array = move(activeRoutineSets, result.source.index, result.destination.index);
-
-    setRoutineSets({ ...routineSets, [activeRoutineId]: array });
+    if (activeRoutineId) {
+      setRoutineSets({ ...routineSets, [activeRoutineId]: array });
+    }
   };
 
   const updateRoutineSets = (routineSetId: number, attrsToMerge: any) => {
-    const newActiveRoutineSets = activeRoutineSets.map((routineSet: any) => {
+    const newActiveRoutineSets = activeRoutineSets.map((routineSet: WorkoutSet) => {
       return routineSet.id === routineSetId ? { ...routineSet, ...attrsToMerge } : routineSet;
     });
-    setRoutineSets({ ...routineSets, [activeRoutineId]: newActiveRoutineSets });
+    if (activeRoutineId) {
+      setRoutineSets({ ...routineSets, [activeRoutineId]: newActiveRoutineSets });
+    }
   };
 
   const saveRoutine = () => {
-    postRoutine({
-      routine: activeRoutine,
-      workoutSets: activeRoutineSets,
-      routineSets: activeRoutineSets.map((activeRoutineSet: any, index: number) => ({
-        routineId: activeRoutine.id,
-        setId: activeRoutineSet.id,
-        ordering: index
-      }))
-    });
+    if (activeRoutineSets) {
+      const routineSets = activeRoutineSets.flatMap((activeWorkoutSet: WorkoutSet, index: number) => {
+        if (activeWorkoutSet.id) {
+          return [
+            new RoutineSet({
+              routineId: activeRoutine.id,
+              setId: activeWorkoutSet.id,
+              ordering: index
+            })
+          ];
+        } else {
+          return [];
+        }
+      });
+      postRoutine({
+        routine: activeRoutine,
+        workoutSets: activeRoutineSets,
+        routineSets
+      });
+    }
   };
 
   return (
@@ -83,7 +100,7 @@ function EditScreen() {
         name={'Routines'}
       />
       <DragAndDropRegion onDragEnd={onDragEnd}>
-        {activeRoutineSets.map((set: any) => (
+        {activeRoutineSets.map((set: WorkoutSet) => (
           <EditFormRow key={set.id} exercises={exercises} routineSet={set} updateRoutineSets={updateRoutineSets} />
         ))}
       </DragAndDropRegion>

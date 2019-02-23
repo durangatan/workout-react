@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dropdown, Input } from '../../elements';
+import { Exercise, WorkoutSet } from '../../../../../workout-models';
 
 const FormRowContainer = styled.div`
   width: 100%;
@@ -10,8 +11,8 @@ const FormRowContainer = styled.div`
   align-items: center;
 `;
 type EditFormRowProps = {
-  exercises: Array<any>;
-  routineSet: any;
+  exercises: Array<Exercise>;
+  routineSet: WorkoutSet;
   updateRoutineSets: (routineSetId: number, attrs: any) => void;
 };
 
@@ -21,20 +22,22 @@ export default function EditFormRow({ exercises, routineSet, updateRoutineSets }
       <Dropdown
         activeIndex={exercises.findIndex((exercise: any) => routineSet.exerciseId == exercise.id)}
         options={exercises.map((exercise: any) => ({ value: exercise.id, label: exercise.name }))}
-        onChange={event => updateRoutineSets(routineSet.id, { exerciseId: event.currentTarget.value })}
+        onChange={event => routineSet.id && updateRoutineSets(routineSet.id, { exerciseId: event.currentTarget.value })}
         name={'Exercise'}
       />
       <Input
         label={'Reps:'}
         value={routineSet.repetitions}
         type="number"
-        onChange={event => updateRoutineSets(routineSet.id, { repetitions: event.currentTarget.value })}
+        onChange={event =>
+          routineSet.id && updateRoutineSets(routineSet.id, { repetitions: event.currentTarget.value })
+        }
       />
       <Input
         label={'Weight'}
         value={routineSet.weight}
         type="number"
-        onChange={event => updateRoutineSets(routineSet.id, { weight: event.currentTarget.value })}
+        onChange={event => routineSet.id && updateRoutineSets(routineSet.id, { weight: event.currentTarget.value })}
       />
     </FormRowContainer>
   );
