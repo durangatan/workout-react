@@ -14,7 +14,7 @@ phases:
       - npm run build
   post_build:
     commands:
-      - aws s3 sync --delete ./dist "s3://joesworkouts.app"
+      - aws s3 sync --delete ./build "s3://joesworkouts.app"
 artifacts:
   files: 
     - '**/*'
