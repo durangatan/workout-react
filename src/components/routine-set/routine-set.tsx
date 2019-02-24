@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Exercise from '../exercise';
 import { renderIf } from '../util';
 import { Table } from '../elements';
-import { WorkoutSet } from '../../../../workout-models';
+import { ExerciseSet } from 'workout-models';
 
 const RoutineSetContainer = styled.div`
   display: flex;
@@ -13,7 +13,7 @@ const RoutineSetContainer = styled.div`
   justify-content: center;
 `;
 
-export default function RoutineSet({ routineSet }: { routineSet: WorkoutSet }) {
+export default function RoutineSet({ routineSet }: { routineSet: ExerciseSet }) {
   return (
     <RoutineSetContainer>
       {routineSet.exercise && <Exercise exercise={routineSet.exercise} setType={routineSet.type} />}

@@ -28,7 +28,8 @@
     "react-swipe": "^6.0.4",
     "styled-components": "^4.1.3",
     "swipe-js-iso": "^2.1.5",
-    "typescript": "^3.3.3"
+    "typescript": "^3.3.3",
+    "workout-models": "git+https://github.com/durangatan/workout-models.git"
   },
   "scripts": {
     "start": "react-scripts start",

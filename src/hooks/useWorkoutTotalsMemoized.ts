@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Workout } from '../../../workout-models';
+import { Workout } from 'workout-models';
 
 export type WorkoutTotals = {
   totalWeight: number;
@@ -15,10 +15,10 @@ export default function(workouts: Array<Workout>) {
           totalTime: acc.totalTime + workout.totalTime,
           totalWeight:
             acc.totalWeight +
-            (workout.completedSets
-              ? workout.completedSets.reduce<number>((acc, completedSet) => acc + completedSet.weight, 0)
+            (workout.completedExerciseSets
+              ? workout.completedExerciseSets.reduce<number>((acc, completedSet) => acc + completedSet.weight, 0)
               : 0),
-          totalSets: acc.totalSets + (workout.completedSets ? workout.completedSets.length : 0)
+          totalSets: acc.totalSets + (workout.completedExerciseSets ? workout.completedExerciseSets.length : 0)
         }),
         { totalWeight: 0, totalTime: 0, totalSets: 0 }
       ),

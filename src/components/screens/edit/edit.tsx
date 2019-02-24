@@ -6,9 +6,9 @@ import { getRoutines, getRoutine, getExercises, postRoutine } from '../../../api
 import { Button, LinkButton, Dropdown, DragAndDropRegion, Input } from '../../elements';
 import { EditFormRow } from './';
 import { ButtonContainer } from '../../elements/button';
-import { Routine, RoutineSet, Exercise, WorkoutSet } from '../../../../../workout-models';
+import { Routine, RoutineSet, Exercise, ExerciseSet } from 'workout-models';
 type RoutineSetMap = {
-  [routineId: number]: Array<WorkoutSet>;
+  [routineId: number]: Array<ExerciseSet>;
 };
 
 function EditScreen() {
@@ -59,7 +59,7 @@ function EditScreen() {
   };
 
   const updateRoutineSets = (routineSetId: number, attrsToMerge: any) => {
-    const newActiveRoutineSets = activeRoutineSets.map((routineSet: WorkoutSet) => {
+    const newActiveRoutineSets = activeRoutineSets.map((routineSet: ExerciseSet) => {
       return routineSet.id === routineSetId ? { ...routineSet, ...attrsToMerge } : routineSet;
     });
     if (activeRoutineId) {
@@ -69,12 +69,12 @@ function EditScreen() {
 
   const saveRoutine = () => {
     if (activeRoutineSets) {
-      const routineSets = activeRoutineSets.flatMap((activeWorkoutSet: WorkoutSet, index: number) => {
-        if (activeWorkoutSet.id) {
+      const routineSets = activeRoutineSets.flatMap((activeExerciseSet: ExerciseSet, index: number) => {
+        if (activeExerciseSet.id) {
           return [
             new RoutineSet({
               routineId: activeRoutine.id,
-              setId: activeWorkoutSet.id,
+              exerciseSetId: activeExerciseSet.id,
               ordering: index
             })
           ];
@@ -84,7 +84,7 @@ function EditScreen() {
       });
       postRoutine({
         routine: activeRoutine,
-        workoutSets: activeRoutineSets,
+        exerciseSets: activeRoutineSets,
         routineSets
       });
     }
@@ -100,7 +100,7 @@ function EditScreen() {
         name={'Routines'}
       />
       <DragAndDropRegion onDragEnd={onDragEnd}>
-        {activeRoutineSets.map((set: WorkoutSet) => (
+        {activeRoutineSets.map((set: ExerciseSet) => (
           <EditFormRow key={set.id} exercises={exercises} routineSet={set} updateRoutineSets={updateRoutineSets} />
         ))}
       </DragAndDropRegion>

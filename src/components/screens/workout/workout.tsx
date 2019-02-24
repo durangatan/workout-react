@@ -9,7 +9,7 @@ import { ButtonContainer } from '../../elements/button';
 import { EndWorkoutConfirmationModal } from './modals';
 import { Main } from '../../page';
 import RoutineSet from '../../routine-set';
-import { Routine, WorkoutSet } from '../../../../../workout-models';
+import { Routine, ExerciseSet } from 'workout-models';
 
 type WorkoutScreenProps = {
   toggleModal: (modalShouldOpen: boolean, modalChildren: ReactNode) => void;
@@ -17,7 +17,7 @@ type WorkoutScreenProps = {
 
 function Workout({ history, toggleModal }: WorkoutScreenProps) {
   const [routine, setRoutine] = useState<Routine>(new Routine({ name: 'Placeholder Routine' }));
-  const [sets, setSets] = useState<Array<WorkoutSet>>([]);
+  const [sets, setSets] = useState<Array<ExerciseSet>>([]);
   const incompleteSets = sets.filter(set => !set.completed);
   const completedSets = sets.filter(set => set.completed);
   const [initialTime] = useState<number>(Date.now());
@@ -85,7 +85,7 @@ function Workout({ history, toggleModal }: WorkoutScreenProps) {
         <Button
           onClick={() => {
             if (!incompleteSets.length) {
-              endWorkout();
+              return endWorkout();
             }
             const currentSlideRef: any = slideRef.current;
             if (currentSlideRef) {
@@ -93,10 +93,11 @@ function Workout({ history, toggleModal }: WorkoutScreenProps) {
             }
             setCurrentSetIndex(currentSetIndex + 1);
             const setsCopy = [...sets];
-            setsCopy[currentSetIndex] = new WorkoutSet({
+            setsCopy[currentSetIndex] = new ExerciseSet({
               ...sets[currentSetIndex],
               completed: true
             });
+            console.log(completedSets);
             setSets(setsCopy);
           }}
           text={'Complete Set'}

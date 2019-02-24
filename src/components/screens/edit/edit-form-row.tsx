@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dropdown, Input } from '../../elements';
-import { Exercise, WorkoutSet } from '../../../../../workout-models';
+import { Exercise, ExerciseSet } from 'workout-models';
 
 const FormRowContainer = styled.div`
   width: 100%;
@@ -12,7 +12,7 @@ const FormRowContainer = styled.div`
 `;
 type EditFormRowProps = {
   exercises: Array<Exercise>;
-  routineSet: WorkoutSet;
+  routineSet: ExerciseSet;
   updateRoutineSets: (routineSetId: number, attrs: any) => void;
 };
 

@@ -6,22 +6,11 @@ import { Table } from '../../elements';
 import { useWorkoutTotalsMemoized } from '../../../hooks';
 import { ButtonContainer } from '../../elements/button';
 import { LinkButton } from '../../elements';
-import { Workout, WorkoutSet } from '../../../../../workout-models';
+import { Workout, ExerciseSet } from 'workout-models';
 export default function Stats() {
   const [workouts, setWorkouts] = useState<Array<Workout>>([]);
   useEffect(() => {
-    setWorkouts([
-      new Workout({
-        startTime: 3000,
-        endTime: 6000,
-        completedSets: [
-          new WorkoutSet({ weight: 20, repetitions: 12 }),
-          new WorkoutSet({ weight: 20, repetitions: 12 })
-        ]
-      }),
-      new Workout({ startTime: 3000, endTime: 6000, completedSets: [new WorkoutSet({ weight: 20, repetitions: 12 })] })
-    ]);
-    // getWorkouts().then(setWorkouts);
+    getWorkouts().then(setWorkouts);
   }, []);
 
   const { totalWeight, totalSets, totalTime } = useWorkoutTotalsMemoized(workouts);

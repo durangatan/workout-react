@@ -6,12 +6,12 @@ import { LinkButton } from '../../elements';
 import { ButtonContainer } from '../../elements/button';
 import { Table } from '../../elements';
 import { Main } from '../../page';
-import { WorkoutSet } from '../../../../../workout-models';
+import { ExerciseSet, Workout, CompletedSet, CompletedSetArguments } from 'workout-models';
 function Results({ location }: RouteComponentProps) {
   const routineName = location.state.routine.name;
   const numberOfSets = location.state.completedSets.length;
   const totalWeight = location.state.completedSets.reduce(
-    (acc: number, currentSet: WorkoutSet) => acc + currentSet.weight,
+    (acc: number, currentSet: ExerciseSet) => acc + currentSet.weight,
     0
   );
   const startTime = location.state.initialTime;
@@ -19,12 +19,14 @@ function Results({ location }: RouteComponentProps) {
   const totalTimeMs = location.state.currentTime - location.state.initialTime;
 
   useEffect(() => {
-    postWorkout({
-      routines: [location.state.routine],
-      startTime,
-      endTime,
-      completedSets: location.state.completedSets
-    });
+    postWorkout(
+      new Workout({
+        routines: [location.state.routine],
+        startTime,
+        endTime,
+        completedExerciseSets: location.state.completedSets
+      })
+    );
   }, []);
 
   return (

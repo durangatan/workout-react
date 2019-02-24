@@ -2,8 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { renderIf } from '../util';
 import { Table } from '../elements';
-import { Exercise as ExerciseModel } from '../../../../workout-models';
-import { SetType } from '../../../../workout-models/WorkoutSet';
+import { Exercise as ExerciseModel, SetType } from 'workout-models';
 const ExerciseContainer = styled.div`
   display: flex;
   flex-direction: column;
