@@ -1,0 +1,20 @@
+version: 0.2
+env:
+  variables:
+    API_URL: 'https://api.joesworkouts.net/'
+phases:
+  install:
+    commands:
+      - npm install
+  pre_build:
+    commands:
+      - echo "pre_build step"
+  build:
+    commands:
+      - npm run build
+  post_build:
+    commands:
+      - aws s3 sync --delete ./dist "s3://joesworkouts.app"
+artifacts:
+  files: 
+    - '**/*'
