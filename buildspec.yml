@@ -1,7 +1,7 @@
 version: 0.2
 env:
   variables:
-    REACT_APP_API_URL: 'https://joes-workout-api.herokuapp.com/'
+    REACT_APP_API_URL: 'https://joes-workout-api.herokuapp.com'
 phases:
   install:
     commands:
