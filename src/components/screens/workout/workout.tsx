@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, ReactNode } from 'react';
 import styled from 'styled-components';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import ReactSwipe from 'react-swipe';
-import { getRoutine } from '../../../api';
+import { getRoutines } from '../../../api';
 import { renderIf, formattedTime } from '../../util/';
 import { Button, Table } from '../../elements';
 import { ButtonContainer } from '../../elements/button';
@@ -34,9 +34,10 @@ function Workout({ history, toggleModal }: WorkoutScreenProps) {
   });
 
   useEffect(() => {
-    getRoutine(1).then(routine => {
-      setRoutine(new Routine(routine));
-      setSets(routine.sets);
+    getRoutines().then(routines => {
+      const thisRoutine = routines[0];
+      setRoutine(new Routine(thisRoutine));
+      setSets(thisRoutine.sets);
     });
   }, []);
 
